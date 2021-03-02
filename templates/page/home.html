@@ -1,0 +1,26 @@
+{% extends 'base/basic.html' %}
+{% block content %}
+<style>
+    .thumbnail{
+	display: block;
+	width: 100%;
+	height: 180px;
+	object-fit: cover;
+}
+</style>
+<div class="container">
+    <div class="row">
+        {% for movie in movies%}
+        <div class="col-md-3">
+            <div class="card my-3 rounded" style="width: 18rem;">
+              <img class="thumbnail" src="{{movie.image.url}}" alt="Card image cap">
+              <div class="card-body">
+                  <a href="{% url 'details-movie' movie.id %}"><h5 class="card-title">{{movie.name}}:{{movie.sub_name}}</h5></a>
+                  <p class="card-text my-3">{{movie.description}}</p>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
