@@ -7,12 +7,10 @@ from movie.models import Movie
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
-def getMovies(request):
-    movies = Movie.objects.all()
-    context = {'movies':movies}
-    return render(request, 'page/home.html', context)
+def homePage(request):
+    return render(request, 'page/home.html')
 
-def getMovie(request, pk):
+def detailsMoviePage(request, pk):
     movie = Movie.objects.get(id=pk)
     context = {'movie':movie}
     return render(request, 'page/MovieDetails.html', context)
@@ -45,5 +43,11 @@ def deleteMovie(request, pk):
     movie = Movie.objects.get(id=pk)
     movie.delete()
     return redirect('list-movies')
+
+def listMoviePage(request):
+    movies = Movie.objects.all()[:4]
+    context = {'movies': movies}
+    return render(request, 'githubPage/index.html', context)
+
 
 

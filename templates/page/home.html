@@ -1,26 +1,59 @@
 {% extends 'base/basic.html' %}
+{% load static %}
 {% block content %}
 <style>
     .thumbnail{
 	display: block;
 	width: 100%;
-	height: 180px;
+	height: 300px;
 	object-fit: cover;
 }
 </style>
-<div class="container">
-    <div class="row">
-        {% for movie in movies%}
-        <div class="col-md-3">
-            <div class="card my-3 rounded" style="width: 18rem;">
-              <img class="thumbnail" src="{{movie.image.url}}" alt="Card image cap">
-              <div class="card-body">
-                  <a href="{% url 'details-movie' movie.id %}"><h5 class="card-title">{{movie.name}}:{{movie.sub_name}}</h5></a>
-                  <p class="card-text my-3">{{movie.description}}</p>
-              </div>
-            </div>
+<div class="banner-area">
+    <nav class="navbar navbar-expand-lg mx-5">
+    <a class="navbar-brand" href="#">
+      <img src="{% static 'media/1.png' %}" alt="" width="250" height="110" class="d-inline-block align-top">
+    </a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li class="nav-item mx-3">
+                    <div class="dropdown">
+                      <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Язык
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Русский</a></li>
+                        <li><a class="dropdown-item" href="#">Английский</a></li>
+                      </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'login-user' %}"><button type="button" class="btn btn-danger">Войти</button></a>
+                </li>
+            </ul>
         </div>
-        {% endfor %}
+    </nav>
+    <div class="row justify-content-center">
+        <div class="col-5 my-5">
+            <h1 style="font-size: 60px;" class="text-center my-3">Фильмы, сериалы и многое другое без ограничений.</h1>
+            <h5 style="font-size: 30px;" class="text-center my-3">Смотрите где угодно. Отменить подписку можно в любое время.</h5>
+            <p style="font-size: 20px;" class="text-center my-3">Готовы смотреть? Введите адрес электронной почты, чтобы оформить или возобновить подписку.</p>
+             <form class="d-flex">
+          <input style="height:70px; width: 500px;" class="form-control" type="search" placeholder="Адрес электронной почты" aria-label="Search">
+          <button style="height:70px; width: 400px;"  class="btn btn-danger" type="submit"><h4>Регистрация</h4></button>
+        </form>
+        </div>
     </div>
 </div>
+<!--<div class="line"></div>-->
+<!--<div class="content-area">-->
+<!--    <div class="row">-->
+<!--    {% for movie in movies %}-->
+<!--    <div class="col-md-2">-->
+<!--        <a href=""><img src="{{ movie.image.url }}" class="card-img"></a>-->
+<!--        <p class="card-text">{{ movie.name }}:{{movie.sub_name}}, {{movie.year}}</p>-->
+<!--    </div>-->
+<!--    {% endfor %}-->
+<!--    </div>-->
+<!--</div>-->
 {% endblock %}
