@@ -63,6 +63,8 @@ def confirmSignUp(request):
         code = request.POST['code']
         if code == request.session['code']:
             user = User.objects.get(username=request.session['email'])
+            print(request.session['email'])
+            print(user)
             user.is_active = True
             login(request, user)
             return redirect('list-movies')
