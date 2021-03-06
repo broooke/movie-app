@@ -4,5 +4,6 @@ from authorization import views
 
 urlpatterns = [
     path('login/', views.loginUser, name='login-user'),
-    path('signup/', views.signupUser, name='signup-user'),
+    path('signup/', views.signupUser, name='register-user'),
+    path('signup/confirm/', views.confirmSignUp, name='register-confirm')
 ]

@@ -134,3 +134,11 @@ MEDIA_ROOT = 'static/media'
 MEDIA_URL = '/media/'
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'bi50_n.k.gaiydenko@mpt.ru'
+EMAIL_HOST_PASSWORD = 'Nikita20022002mpt'

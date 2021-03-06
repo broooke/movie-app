@@ -8,6 +8,11 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 def homePage(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        request.session['email'] = email
+        print(request.session['email'])
+        return redirect('register-user')
     return render(request, 'page/home.html')
 
 def detailsMoviePage(request, pk):
