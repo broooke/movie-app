@@ -2,7 +2,7 @@ import random
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -63,12 +63,15 @@ def confirmSignUp(request):
         code = request.POST['code']
         if code == request.session['code']:
             user = User.objects.get(username=request.session['email'])
-            print(request.session['email'])
-            print(user)
             user.is_active = True
+            user.save()
             login(request, user)
             return redirect('list-movies')
         else:
-            messages.add_message(request, messages.INFO, 'Hello world.')
+            messages.add_message(request, messages.INFO, 'Code incorrect')
             return render(request, 'page/signupConfirm.html')
     return render(request, 'page/signupConfirm.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
