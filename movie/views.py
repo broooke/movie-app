@@ -9,9 +9,6 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 def homePage(request):
     if request.method == 'POST':
-        email = request.POST['email']
-        request.session['email'] = email
-        print(request.session['email'])
         return redirect('register-user')
     return render(request, 'page/home.html')
 
@@ -50,7 +47,7 @@ def deleteMovie(request, pk):
     return redirect('list-movies')
 
 def listMoviePage(request):
-    movies = Movie.objects.all()[:4]
+    movies = Movie.objects.all()
     context = {'movies': movies}
     return render(request, 'githubPage/index.html', context)
 
