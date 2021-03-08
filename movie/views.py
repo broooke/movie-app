@@ -1,9 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from movie.forms import createMovieForm
-from movie.models import Movie
+from movie.forms import createMovieForm, addReviewForm
+from movie.models import Movie, Genre
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
@@ -14,8 +15,9 @@ def homePage(request):
 
 def detailsMoviePage(request, pk):
     movie = Movie.objects.get(id=pk)
-    context = {'movie':movie}
-    return render(request, 'page/MovieDetails.html', context)
+    movies = Movie.objects.all()
+    context = {'movie':movie, 'movies':movies}
+    return render(request, 'django_movie/moviesingle.html', context)
 
 def createMovie(request):
     form = createMovieForm()
@@ -48,8 +50,22 @@ def deleteMovie(request, pk):
 
 def listMoviePage(request):
     movies = Movie.objects.all()
-    context = {'movies': movies}
-    return render(request, 'githubPage/index.html', context)
+    genres = Genre.objects.all()
+    context = {'movies': movies, 'genres':genres}
+    return render(request, 'django_movie/movies.html', context)
+
+def addReview(request, pk):
+    if request.method == 'POST':
+        form = addReviewForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            if request.POST.get("parent", None):
+                form.parent_id = int(request.POST.get('parent'))
+            form.movie_id = pk
+            form.save()
+            return redirect('list-movies')
+    else:
+        return HttpResponse('Error')
 
 
 

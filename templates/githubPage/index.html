@@ -67,7 +67,7 @@
 					<div class="slider">
 						{% for movie in movies %}
 						<div class="movie">
-							<a href=""><img src="{{ movie.poster.url }}" class="card-imgg"></a>
+							<a href="{% url 'details-movie' movie.id %}"><img src="{{ movie.poster.url }}" class="card-imgg"></a>
 							<p class="card-text">{{ movie.title }}:{{movie.tagline}}, {{movie.year}}</p>
 						</div>
 						{% endfor %}

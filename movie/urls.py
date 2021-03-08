@@ -8,5 +8,6 @@ urlpatterns = [
     path('create/', views.createMovie, name='create-movie'),
     path('update/<str:pk>/', views.updateMovie, name='update-movie'),
     path('delete/<str:pk>/', views.deleteMovie, name='delete-movie'),
-    path('home/', views.listMoviePage, name='list-movies')
+    path('home/', views.listMoviePage, name='list-movies'),
+    path('add_review/<str:pk>/', views.addReview, name='add-review')
 ]
