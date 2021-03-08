@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from movie.forms import createMovieForm, addReviewForm
-from movie.models import Movie, Genre
+from movie.models import Movie, Genre, Actor
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
@@ -51,8 +52,15 @@ def deleteMovie(request, pk):
 def listMoviePage(request):
     movies = Movie.objects.all()
     genres = Genre.objects.all()
-    context = {'movies': movies, 'genres':genres}
+    years = getYears()
+    if 'year' in request.GET:
+        movies = Movie.objects.filter(Q(year__in=request.GET.getlist("year")) | Q(genres__in=request.GET.getlist("genre")))
+    context = {'movies': movies, 'genres':genres, 'years': set(years)}
     return render(request, 'django_movie/movies.html', context)
+
+def getYears():
+    years = Movie.objects.all().values_list("year")
+    return years
 
 def addReview(request, pk):
     if request.method == 'POST':
@@ -67,5 +75,11 @@ def addReview(request, pk):
     else:
         return HttpResponse('Error')
 
+def actorsPage(request, name):
+    actor = Actor.objects.get(name=name)
+    movies = Movie.objects.all()
+    genres = Genre.objects.all()
+    context = {'actor':actor, 'movies':movies, 'genres':genres}
+    return render(request, 'django_movie/acters.html', context)
 
 

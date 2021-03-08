@@ -32,7 +32,7 @@
                     <!-- nav -->
                     <nav class="py-4">
                         <div id="logo">
-                            <h1> <a href="index.html" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">DjangoMovie</a></h1>
+                            <h1> <a href="{% url 'list-movies'%}" class="editContent" style="outline: none; outline-offset: -2px; cursor: inherit; color: rgb(255, 255, 255); font-size: 40px; background-color: rgba(0, 0, 0, 0); font-family: &quot;Source Sans Pro&quot;, sans-serif;">DjangoMovie</a></h1>
                         </div>
 
                         <label for="drop" class="toggle">Menu</label>
@@ -92,12 +92,13 @@
                             </form>
                         </div>
                         <!--preference -->
+                        <form method="get">
                         <div class="left-side my-4">
                             <h3 class="sear-head editContent" >Жанры</h3>
                             <ul class="w3layouts-box-list">
                                 {% for genre in genres %}
                                 <li class="editContent" >
-                                    <input type="checkbox" class="checked">
+                                    <input type="checkbox" class="checked" name="genre" value="{{genre.id}}">
                                     <span class="span editContent" >{{genre.name}}</span>
                                 </li>
                                 {% endfor %}
@@ -108,14 +109,16 @@
                         <div class="left-side">
                             <h3 class="sear-head editContent" >Год</h3>
                             <ul class="w3layouts-box-list">
-                                {% for movie in movies %}
+                                {% for year in years %}
                                 <li class="editContent" >
-                                    <input type="checkbox" class="checked">
-                                    <span class="span editContent" >{{movie.year }}</span>
+                                    <input type="checkbox" class="checked" name="year" value="{{year.0}}">
+                                    <span class="span editContent" >{{year.0}}</span>
                                 </li>
                                 {% endfor %}
                             </ul>
                         </div>
+                            <button type="submit">Найти</button>
+                        </form>
                         <!-- //discounts -->
                         <!-- reviews -->
                         <div class="customer-rev left-side my-4">

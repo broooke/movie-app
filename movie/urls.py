@@ -9,5 +9,6 @@ urlpatterns = [
     path('update/<str:pk>/', views.updateMovie, name='update-movie'),
     path('delete/<str:pk>/', views.deleteMovie, name='delete-movie'),
     path('home/', views.listMoviePage, name='list-movies'),
-    path('add_review/<str:pk>/', views.addReview, name='add-review')
+    path('add_review/<str:pk>/', views.addReview, name='add-review'),
+    path('actor/<str:name>/', views.actorsPage, name='actors'),
 ]
