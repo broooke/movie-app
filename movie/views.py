@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from movie.forms import createMovieForm, addReviewForm
+from movie.forms import createMovieForm, addReviewForm, RatingForm
 from movie.models import Movie, Genre, Actor
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
@@ -17,7 +17,7 @@ def homePage(request):
 def detailsMoviePage(request, pk):
     movie = Movie.objects.get(id=pk)
     movies = Movie.objects.all()
-    context = {'movie':movie, 'movies':movies}
+    context = {'movie':movie, 'movies':movies, 'star_form':RatingForm()}
     return render(request, 'django_movie/moviesingle.html', context)
 
 def createMovie(request):
